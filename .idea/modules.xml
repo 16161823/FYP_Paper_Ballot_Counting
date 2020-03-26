@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/16161823PaperBallotCounting.iml" filepath="$PROJECT_DIR$/16161823PaperBallotCounting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CountingStation/CountingStation.iml" filepath="$PROJECT_DIR$/CountingStation/CountingStation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PollingStation/PollingStation.iml" filepath="$PROJECT_DIR$/PollingStation/PollingStation.iml" />
     </modules>
   </component>
 </project>
