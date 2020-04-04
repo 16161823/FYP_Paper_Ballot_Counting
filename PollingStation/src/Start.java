@@ -12,10 +12,11 @@ public class Start {
             Scanner scanner = new Scanner(System.in);
             Scanner in = new Scanner(socket.getInputStream());
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            while (scanner.hasNextLine()) {
-                out.println(scanner.nextLine());
-                System.out.println(in.nextLine());
-            }
+
+           //while (scanner.hasNextLine()) {
+            out.println("Well");
+            //System.out.println(in.nextLine());
+            //}
         }
     }
 }

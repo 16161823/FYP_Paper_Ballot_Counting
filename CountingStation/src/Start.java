@@ -35,7 +35,7 @@ public class Start {
                 Scanner in = new Scanner(socket.getInputStream());
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 while (in.hasNextLine()) {
-                    out.println(in.nextLine().toUpperCase());
+                    System.out.println(in.nextLine().toUpperCase());
                 }
             } catch (Exception e) {
                 System.out.println("Error:" + socket);

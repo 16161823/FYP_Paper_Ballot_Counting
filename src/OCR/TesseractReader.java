@@ -11,15 +11,15 @@ public class TesseractReader {
         Tesseract tesseract = new Tesseract();
         try {
 
-            tesseract.setDatapath("D:/Tess4J/tessdata");
-
             // the path of your tess data folder
             // inside the extracted file
-            String text
-                    = tesseract.doOCR(new File("image.jpg"));
+            tesseract.setDatapath("D:/Tess4J/tessdata");
 
             // path of your image file
+            String text = tesseract.doOCR(new File("image.jpg"));
+
             System.out.print(text);
+
         } catch (TesseractException e) {
             e.printStackTrace();
         }
