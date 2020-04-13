@@ -51,3 +51,7 @@ public class Start {
 
 }
 
+//Tesseract will read each of the images in order
+//reading each preference number or "0" if no preference
+//this will be added to the a string which will then be put into a array
+//Example Ballot would be 2014003

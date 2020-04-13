@@ -24,7 +24,7 @@ public class imageDivider {
 
         BufferedImage [] bufferedImages = new BufferedImage[7];
         int idx = 0;
-        int candidates = 7;
+        int candidates = 8;
         int boxW = 133;
         int boxH = 129;
         int firstBoxY = 526;
