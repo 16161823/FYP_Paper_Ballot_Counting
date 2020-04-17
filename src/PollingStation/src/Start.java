@@ -53,5 +53,6 @@ public class Start {
 
 //Tesseract will read each of the images in order
 //reading each preference number or "0" if no preference
-//this will be added to the a string which will then be put into a array
+//This will then be converted to an int array with the first index being the position of the votes first preference and so on untill no more preferences.
 //Example Ballot would be 2014003
+//This would be stored array[0] = 3, array[1] = 1, array[2] = 7, array[3] = 4
