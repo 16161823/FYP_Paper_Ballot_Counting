@@ -1,4 +1,4 @@
-package OCR;
+/*package OCR;
 
 import java.awt.Point;
 import java.awt.Transparency;
@@ -27,7 +27,7 @@ import de.vorb.leptonica.Pix;
  *
  * @author Paul Vorbach
  */
-
+/*
 public class PixConversions {
     private PixConversions() {
     }
@@ -37,7 +37,7 @@ public class PixConversions {
      *
      * @param img
      * @return
-     */
+     *//*
     public static Pointer<Pix> img2pix(BufferedImage img) {
         final int width = img.getWidth();
         final int height = img.getHeight();
@@ -91,3 +91,4 @@ public class PixConversions {
         return ppix;
     }
 }
+*/

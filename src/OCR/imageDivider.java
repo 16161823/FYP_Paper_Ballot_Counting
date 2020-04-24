@@ -22,18 +22,19 @@ public class imageDivider {
         System.out.println(source.getHeight());
         System.out.println(source.getWidth());
 
-        BufferedImage [] bufferedImages = new BufferedImage[7];
+        BufferedImage [] bufferedImages = new BufferedImage[9];
         int idx = 0;
         int candidates = 8;
-        int boxW = 133;
-        int boxH = 129;
-        int firstBoxY = 526;
-        int boxLeftX = 1471;
+        int boxW = 130;
+        int boxH = 130;
+        int firstBoxY = 528;
+        int boxLeftX = 1476;
         int spaceBetween = 51;
 
         for (int y = 0; y < candidates; y++) {
 
             bufferedImages[y] = source.getSubimage(boxLeftX,firstBoxY, boxW, boxH);
+
                 // String vote =  tesseract.doOCR(source.getSubimage(1471, localY, boxW, boxH));
                 // System.out.println(vote);
                 // ImageIO.write(source.getSubimage(1471, localY, boxW, boxH), "png", new File("D:\\Michal\\Uni Work\\4th Year\\FYP\\Images\\dividedImages\\Pref#" + idx++ + ".png"));
@@ -54,7 +55,8 @@ public class imageDivider {
 
             firstBoxY =+ firstBoxY + (boxH + spaceBetween);
         }
-
+        System.out.println("BufferedImageWidth: " + bufferedImages[0].getWidth());
+        System.out.println("BufferedImageHeight: " + bufferedImages[0].getHeight());
     return bufferedImages;
 
     }
