@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -40,7 +41,7 @@ public class server {
             System.out.println(i);
         }
         try {
-            for(int i = 0;i < 100; i++) {
+            for(int i = 0;i < 10000; i++) {
 
                 object = objectInputStream.readObject();
                 //command.ballot = (ArrayList<Integer>) object;

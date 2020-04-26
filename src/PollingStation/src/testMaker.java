@@ -8,7 +8,7 @@ public class testMaker {
     ArrayList<Integer> ballot = new ArrayList<Integer>();
     int candidates = 8;
     Random random = new Random();
-    static int testMakerSize = 100;
+    static int testMakerSize = 10000; //Has to be manually inputted in CountingStation Server.
     Integer a = null;
     Integer b = null;
     Integer c = null;
@@ -17,9 +17,12 @@ public class testMaker {
 
         for(int i = 0;i < testMakerSize;i++){
 
+            b = random.nextInt(candidates);
+            c = random.nextInt(candidates);
             Integer x = random.nextInt(100);
             if (x >= 50){
                 a = 2;
+                b = 1;
             }
             else if (x < 50 && x >= 30)
             {
@@ -34,8 +37,8 @@ public class testMaker {
             }
 
             //a = random.nextInt(candidates+1);
-            b = random.nextInt(candidates+1);
-            c = random.nextInt(candidates+1);
+            //b = random.nextInt(candidates+1);
+            //c = random.nextInt(candidates+1);
 
 
             this.ballot = new ArrayList<Integer>();

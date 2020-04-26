@@ -56,8 +56,27 @@ public class STV {
         while(!countingOver){
             isNewWinner(candidatesArray);
             isCountingOver();
+            candidatesArray.get(0).trimToSize();
+            candidatesArray.get(1).trimToSize();
+            candidatesArray.get(2).trimToSize();
+            candidatesArray.get(3).trimToSize();
+            candidatesArray.get(4).trimToSize();
+            candidatesArray.get(5).trimToSize();
+            candidatesArray.get(6).trimToSize();
+            candidatesArray.get(7).trimToSize();
+
+            System.out.println("Candidate:" + 0 + "ArraySize = "+ candidatesArray.get(0).size());
+            System.out.println("Candidate:" + 1 + "ArraySize = "+ candidatesArray.get(1).size());
+            System.out.println("Candidate:" + 2 + "ArraySize = "+ candidatesArray.get(2).size());
+            System.out.println("Candidate:" + 3 + "ArraySize = "+ candidatesArray.get(3).size());
+            System.out.println("Candidate:" + 4 + "ArraySize = "+ candidatesArray.get(4).size());
+            System.out.println("Candidate:" + 5 + "ArraySize = "+ candidatesArray.get(5).size());
+            System.out.println("Candidate:" + 6 + "ArraySize = "+ candidatesArray.get(6).size());
+            System.out.println("Candidate:" + 7 + "ArraySize = "+ candidatesArray.get(7).size());
+
             if (someoneWonThisRound){
                 redistributingWinnerBallots(candidatesArray);
+                someoneWonThisRound = false;
             }else{
                 isNewLoser(candidatesArray);
                 redistributingLoserBallots(candidatesArray);
@@ -104,7 +123,7 @@ public class STV {
             countingOver = true;
         }
     }
-
+/*
     public void redistributingWinnerBallots(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
         //System.out.println(placesTakenArray.size());
         for (int i = 0; i < placesTakenArray.size(); i++) {
@@ -114,7 +133,7 @@ public class STV {
                 for (int x = 1; candidatesArray.get(a).size() > this.getDroopQuota(); x++) {
                     //Should remove the first preference from ballot allowing to sort based on second and so on.
                     //if(!(candidatesArray.get(a).get((candidatesArray.get(a).size())-x).get(0).isEmpty())){
-                    if (!candidatesArray.get(a).get((candidatesArray.get(a).size()) - x).isEmpty()) {
+                    if (!candidatesArray.get(a).get((candidatesArray.get(a).size()) - x).get(1).isEmpty()) {
                         candidatesArray.get(a).get((candidatesArray.get(a).size()) - x).remove(0);
                         //Gets Preference inside ballot array first slot.
                         if (!candidatesArray.get(a).get((candidatesArray.get(a).size()) - x).isEmpty()) {
@@ -142,7 +161,45 @@ public class STV {
         }
         System.out.println("Winner Distributing");
     }
+*/
+    public void redistributingWinnerBallots(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
+        //System.out.println(placesTakenArray.size());
+        System.out.println("Winner Distributing");
+        Integer x = 1;
+        Integer pref = null;
+        Integer candidateWhoWon = null;
 
+        for (int i = 0; i < placesTakenArray.size(); i++) {
+
+            candidateWhoWon = placesTakenArray.get(i);
+
+            System.out.println("Candidate who's ballots are being redistributed:" + (candidateWhoWon + 1));
+            x = candidatesArray.get(candidateWhoWon).size();
+            System.out.println(x);
+            while (candidatesArray.get(candidateWhoWon).size() >= getDroopQuota() && x != 0) {
+
+                if (candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).size() >= 2)
+                  for(int c = 0; candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).size() >= c; c++) {
+
+                    if (!loserTable.contains(candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).get(1))
+                    && !placesTakenArray.contains(candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).get(1))) {
+
+                            pref = candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).get(1);
+
+                            candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x).remove(0);
+
+                            candidatesArray.get(pref).add(candidatesArray.get(candidateWhoWon).get(candidatesArray.get(candidateWhoWon).size() - x));
+                            candidatesArray.get(candidateWhoWon).remove(candidatesArray.get(candidateWhoWon).size() - x);
+                            candidatesArray.get(candidateWhoWon).trimToSize();
+                        }
+                    }
+                    x--;
+                }
+
+            }
+    }
+
+/*
     //Method Removes ballots from lost candidates arrays, either transfering them to other preferences or deleting them if no other preference.
     public void redistributingLoserBallots(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
         //System.out.println(loserTable.size());
@@ -181,9 +238,56 @@ public class STV {
         }
         //System.out.println("LoserDistributing");
     }
+*/
+    public void redistributingLoserBallots(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
+        //System.out.println(loserTable.size());
+        for (int i = 0; i < loserTable.size(); i++) {
 
+            Integer aLoser = loserTable.get(i);
+            Integer ballotTracking = candidatesArray.get(aLoser).size() - 1;
+            Integer ballotPref = null;
+            Integer passing = null;
+            Boolean moved = null;
+            while (ballotTracking > -1) {
+                if (!(candidatesArray.get(aLoser).size() == 0)) {
+                    System.out.println("1");
+                    while (candidatesArray.get(aLoser).size() > 0 && ballotTracking > -1) {
+                        System.out.println("2");
+                        if (candidatesArray.get(aLoser).get(ballotTracking).size() > 1) {
+                            System.out.println("3");
+                            while (candidatesArray.get(aLoser).get(ballotTracking).size() > 1) {
+                                candidatesArray.get(aLoser).get(ballotTracking).remove(0);
+                                passing = candidatesArray.get(aLoser).get(ballotTracking).get(0);
+                                System.out.println("4");
+                                if (!(placesTakenArray.contains(passing) && !(loserTable.contains(passing)))) {
+                                    candidatesArray.get(passing).add(candidatesArray.get(aLoser).get(ballotTracking));
+                                    candidatesArray.get(aLoser).remove(ballotTracking);
+                                    candidatesArray.get(aLoser).trimToSize();
+                                    System.out.println("5");
+                                    ballotTracking--;
+                                    break;
+                                } else if (candidatesArray.get(aLoser).get(ballotTracking).size() == 1) {
+                                    candidatesArray.get(aLoser).remove(ballotTracking);
+                                    candidatesArray.get(aLoser).trimToSize();
+                                    System.out.println("6");
+                                    ballotTracking--;
+                                    break;
+                                }
+                            }
+                        } else {
+                            candidatesArray.get(aLoser).remove(ballotTracking);
+                            candidatesArray.get(aLoser).trimToSize();
+                            System.out.println("7");
+                            ballotTracking--;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-    //Checks to see if specific candidate won. ArrayList passed should be candidateArray.get(i) where i is the candidate.
+    //Checks to see if specific candidate won. ArrayList passed should be candidateArray.get(i) where i is the candidate. The placesTakenArray holds the position of the candidates ballots in CandidatesArraylist
     public void isNewWinner(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
         for (int i = 0; i < candidatesArray.size(); i++) {
             if (candidatesArray.get(i).size() >= getDroopQuota()) {
@@ -202,25 +306,30 @@ public class STV {
     }
 
     public void isNewLoser(ArrayList<ArrayList<ArrayList<Integer>>> candidatesArray) {
-        lowestCandidateCount = 0;
+        lowestCandidateCount = 1000000; //Could be set to size of all ballots together to begin
         locationOfLowestCandidate = -1;
         for (int i = 0; i < candidatesArray.size(); i++) {
-            if (candidatesArray.get(i).size() < lowestCandidateCount ) {
+            if (candidatesArray.get(i).size() < lowestCandidateCount && !loserTable.contains(i) ) {
+
                 lowestCandidateCount = candidatesArray.get(i).size();
                 locationOfLowestCandidate = i;
             }
         }
-        if (locationOfLowestCandidate > -1) {
-            if(!loserTable.contains(locationOfLowestCandidate)) {
-                loserTable.add(locationOfLowestCandidate);
-                System.out.println("LoserLocation:" + locationOfLowestCandidate);
-            }
-        }
+    if(locationOfLowestCandidate == -1)
+    {
+        System.out.println("isNewLoser -1 Error");
+    }
+    else {
+
+        loserTable.add(locationOfLowestCandidate);
+        System.out.println("LoserLocation: " + locationOfLowestCandidate);
+    }
     }
 
+
     public void displayWinners(){
-        for (int i = 0;i < placesTakenArray.size();i++){
-            System.out.println(placesTakenArray.get(placesTakenArray.size()-(i-1)));
+        for (int i = 1;i < placesTakenArray.size()+1;i++){
+            System.out.println(placesTakenArray.get(placesTakenArray.size()-(i))+1);
         }
     }
 }
