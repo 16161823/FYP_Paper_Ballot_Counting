@@ -1,4 +1,4 @@
-
+package PollingStation;
 
 import javax.imageio.IIOException;
 import java.io.*;
@@ -57,6 +57,7 @@ public class client {
     this.dataInputStream.close();
     this.scanner.close();
     this.socket.close();
+    System.out.println("Client Closed");
     }
 }
 

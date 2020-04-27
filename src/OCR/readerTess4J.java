@@ -1,3 +1,4 @@
+package OCR;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.util.ImageIOHelper;
 
@@ -12,7 +13,7 @@ import static net.sourceforge.tess4j.ITessAPI.TessPageSegMode.PSM_SINGLE_CHAR;
 
 public class readerTess4J extends Tesseract {
 
-    readerTess4J(){
+    public readerTess4J(){
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath("D:\\Michal\\Uni Work\\4th Year\\FYP\\Tess4J\\Tess4J\\tessdata");
         tesseract.setPageSegMode(PSM_SINGLE_CHAR);
@@ -37,5 +38,6 @@ public class readerTess4J extends Tesseract {
         }
        this.setImage(image.getWidth(), image.getHeight(), buff, rect, bpp);
     }
+
 
 }

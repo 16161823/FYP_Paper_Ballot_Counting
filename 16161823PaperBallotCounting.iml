@@ -53,5 +53,6 @@
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="java" level="project" />
+    <orderEntry type="library" name="net.sourceforge.tess4j:tess4j:3.4.8" level="project" />
   </component>
 </module>

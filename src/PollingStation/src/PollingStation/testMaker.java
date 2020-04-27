@@ -1,3 +1,4 @@
+package PollingStation;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ public class testMaker {
     ArrayList<Integer> ballot = new ArrayList<Integer>();
     int candidates = 8;
     Random random = new Random();
-    static int testMakerSize = 10000; //Has to be manually inputted in CountingStation Server.
+    private int testMakerSize = 10000; //Has to be manually inputted in CountingStation Server.
     Integer a = null;
     Integer b = null;
     Integer c = null;
@@ -22,7 +23,7 @@ public class testMaker {
             Integer x = random.nextInt(100);
             if (x >= 50){
                 a = 2;
-                b = 1;
+
             }
             else if (x < 50 && x >= 30)
             {
@@ -43,9 +44,9 @@ public class testMaker {
 
             this.ballot = new ArrayList<Integer>();
 
-            this.ballot.add(a);
-            this.ballot.add(b);
             this.ballot.add(c);
+            this.ballot.add(b);
+            this.ballot.add(a);
 
             ballots.add(this.ballot);
 
@@ -64,7 +65,7 @@ public class testMaker {
         return candidates;
     }
 
-    public static int getTestMakerSize() {
+    public int getTestMakerSize() {
         return testMakerSize;
     }
 }

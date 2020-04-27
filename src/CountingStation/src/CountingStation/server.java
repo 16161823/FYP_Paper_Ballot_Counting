@@ -1,4 +1,4 @@
-
+package CountingStation;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -40,12 +40,18 @@ public class server {
         {
             System.out.println(i);
         }
+
+        //System.out.println(command.ballot);
+    }
+
+    public void receiveTest(int testSize){
         try {
-            for(int i = 0;i < 10000; i++) {
+            for(int i = 0;i < testSize; i++) {
 
                 object = objectInputStream.readObject();
                 //command.ballot = (ArrayList<Integer>) object;
                 command.ballots.add(((ArrayList<Integer>) object));
+                System.out.println(object);
             }
         }
         catch (ClassNotFoundException e){
@@ -56,14 +62,9 @@ public class server {
             System.out.println("trouble Reading Object from Socket.");
             i.printStackTrace();
         }
-        //System.out.println(command.ballot);
-
-
     }
 
-
-
-    private static class Capitalizer implements Runnable {
+    private static class Capitalizer implements Runnable { //This method would be used in a multi threaded application.
         private Socket socket;
 
         Capitalizer(Socket socket) {
