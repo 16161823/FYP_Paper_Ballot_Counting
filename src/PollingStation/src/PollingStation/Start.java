@@ -1,26 +1,18 @@
 package PollingStation;
 
-import OCR.readerTess4J;
-import net.sourceforge.tess4j.Tesseract.*;
 import OCR.imageDivider;
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
+import OCR.readerTess4J;
 import net.sourceforge.tess4j.TesseractException;
-import sun.awt.image.ToolkitImage;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Start {
-
+//Ballot Pref = 2,empty,1,4,empty,empty,3,empty
     public Start() throws IOException {
     }
 
@@ -61,7 +53,7 @@ public class Start {
             System.out.println(("Is this the preference in ballot location: " + (i)));
             System.out.println(s.trim());
             System.out.println("____________");
-            System.out.println("If yes press Enter else type in the preference is should have been in the ballot location followed by pressing enter.");
+            System.out.println("If yes press Enter else type in the preference it should have been in the ballot location followed by pressing enter.");
             System.out.println("Type a 0 if there is no preference on ballot");
             name = bufferedReader.readLine();
             if(name.matches("")&& !s.matches("")){

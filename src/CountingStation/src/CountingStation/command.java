@@ -15,7 +15,7 @@ public class command {
 
         STV stv = new STV();
         server server = new server();
-        server.receiveTest(10000);
+        server.receiveTest(100000);
         server.closeServer();
 
 

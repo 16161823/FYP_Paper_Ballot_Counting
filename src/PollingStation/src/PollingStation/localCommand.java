@@ -17,12 +17,13 @@ public class localCommand {
         client client = new client();
         testMaker testMaker = new testMaker();
         ballots = testMaker.testMakeArray();
+        System.out.println("TestMaker Test Size is : " + testMaker.getTestMakerSize());
         System.out.println("Starting data transfer: ");
         for (int i = 0; i < testMaker.getTestMakerSize();i++) {
             client.sendObject(ballots.get(i));
 
         }
-        System.out.println("TestMaker Test Size is : " + testMaker.getTestMakerSize());
+
         System.out.println("Ballot Data has been sent");
 
 

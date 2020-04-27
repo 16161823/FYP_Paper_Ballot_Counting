@@ -18,7 +18,7 @@ public class STV {
     private boolean countingOver = false;
     private boolean winnerThisRound = false;
     private Integer hareQuota, droopQuota, preference;
-    private Integer places = 3, previousLoser = null, iterator = 0;
+    private Integer places = 4, previousLoser = null, previousWinner = null, iterator = 0;
     private Integer candidates = 8, candidatesRemaining = 8;
     private Integer lowestCandidateCount, locationOfLowestCandidate = 0;
 
@@ -94,35 +94,40 @@ public class STV {
     }
 
     public void organiseBallots() { //This should sort ballots that are put into ballotArray. Either moving to a new candidate else deleting if no more pref.
+        System.out.println("Organise Pass: ");
+        System.out.println("");
         while (ballotArray.size() > 0) {
 
             preference = ballotArray.get(ballotArray.size() - 1).get(0);
-            System.out.println("organiseBallotsPref: " + preference);
+            //System.out.println("organiseBallotsPref: " + preference);
             if (!(winnerTable.contains(preference)) && !(loserTable.contains(preference))) {
                 candidatesArray.get(preference).add(ballotArray.get(ballotArray.size() - 1));
-                System.out.println("Ballot has been added to candidate: " + preference);
+                //System.out.println("Ballot has been added to candidate: " + preference);
                 ballotArray.remove(ballotArray.size() - 1);
                 ballotArray.trimToSize();
             } else if (ballotArray.get(ballotArray.size() - 1).size() > 1) {
                 ballotArray.get(ballotArray.size() - 1).remove(0);
                 ballotArray.get(ballotArray.size() - 1).trimToSize();
+                //System.out.println("organiseBallotsPref: 2 ");
             } else {
                 ballotArray.remove(ballotArray.size() - 1);
                 ballotArray.trimToSize();
+                //System.out.println("organiseBallotsPref: 3 ");
             }
 
-
         }
-        System.out.println("Organise Pass: ");
+        System.out.println("ballotsArray redistributed: ");
         System.out.println("");
     }
 
     public void checkNewWinner() {
+        System.out.println("");
         System.out.println("New Winner Check");
         for (Integer i = 0; i < candidates; i++) {
             if (candidatesArray.get(i).size() >= getDroopQuota() && (!winnerTable.contains(i)) && (!loserTable.contains(i))) {
                 winnerTable.add(i);
                 System.out.println("New Winner is candidate " + i);
+                previousWinner = i;
                 candidatesRemaining--;
                 winnerThisRound = true;
 
@@ -131,8 +136,9 @@ public class STV {
     }
 
     public void newLoser() {
+        System.out.println("");
         System.out.println("New Loser");
-        lowestCandidateCount = 10000;
+        lowestCandidateCount = 100000;//Needs to be set to original ballots
         for (Integer i = 0; i < candidates; i++) {
             if (candidatesArray.get(i).size() < lowestCandidateCount && (!winnerTable.contains(i)) && (!loserTable.contains(i))) {
                 lowestCandidateCount = candidatesArray.get(i).size();
@@ -149,6 +155,7 @@ public class STV {
         if (places == winnerTable.size() || places - winnerTable.size() == candidatesRemaining) {
             countingOver = true;
             System.out.println("The election is over.");
+            System.out.println("Results will be displayed shortly");
         }
     }
 
@@ -163,16 +170,19 @@ public class STV {
             }
         }
         System.out.println("");
+        System.out.println("Torthaí Toghcháin");
         System.out.println("The winning candidates are " + winnerTable);
     }
-
+    /*
     public void winnerRemoveExcess() {
-        preference = winnerTable.get(0);
+        preference = previousWinner;
         System.out.println("winnerRemoveExcess Preference: " + preference);
         iterator = candidatesArray.get(preference).size() - 1;
-        System.out.println(iterator);
-        for (; candidatesArray.get(preference).size() > getDroopQuota(); ) {
-            System.out.println(iterator);
+        System.out.println("winnerRemoveExcess 1: " + iterator);
+        while(candidatesArray.get(preference).size() > getDroopQuota()) {
+            System.out.println("winnerRemoveExcess 2 Iterator: " + iterator);
+            System.out.println("winnerRemoveExcess size: " + candidatesArray.get(preference).size());
+            System.out.println("winnerRemoveExcess Droop: " + getDroopQuota());
             while (iterator > 0) {
                 if (candidatesArray.get(preference).get(iterator).size() >= 2) {//If Ballot has another preference still.
                     candidatesArray.get(preference).get(iterator).remove(0);//Removes the current preference
@@ -190,7 +200,34 @@ public class STV {
             }
         }
     }
+*/
+    public void winnerRemoveExcess() {
+        preference = previousWinner;
+        System.out.println("winnerRemoveExcess Preference: " + preference);
+        iterator = candidatesArray.get(preference).size() - 1;
+        //System.out.println("winnerRemoveExcess 1: " + iterator);
+        while(candidatesArray.get(preference).size() > getDroopQuota()) {
+           // System.out.println("winnerRemoveExcess 2 Iterator: " + iterator);
+           // System.out.println("winnerRemoveExcess size: " + candidatesArray.get(preference).size());
+           // System.out.println("winnerRemoveExcess Droop: " + getDroopQuota());
 
+                if (candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).size() >= 2) {//If Ballot has another preference still.
+                    candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).remove(0);//Removes the current preference
+                    candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).trimToSize();
+                    ballotArray.add(candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1));//Puts into ballotArray for later sorting.
+                    candidatesArray.get(preference).remove(candidatesArray.get(preference).size() - 1);
+                    candidatesArray.get(preference).trimToSize();
+                    //System.out.println("winnerRemoveExcess 1");
+                } else {
+                    candidatesArray.get(preference).remove(candidatesArray.get(preference).size() - 1);
+                    candidatesArray.get(preference).trimToSize();
+                    //System.out.println("winnerRemoveExcess 2");
+                }
+                iterator--;
+
+        }
+    }
+    /*
         public void loserRemoveExcess () {
             preference = previousLoser;
             System.out.println("loserRemoveExcess Preference: " + preference);
@@ -220,6 +257,36 @@ public class STV {
             }
             System.out.println("loserRemoveExcess 4");
         }
+*/
+    public void loserRemoveExcess () {
+        preference = previousLoser;
+        //System.out.println("loserRemoveExcess Preference: " + preference);
+
+        iterator = candidatesArray.get(preference).size() - 1;
+        System.out.println(iterator);
+        while ( candidatesArray.get(preference).size() > 0) {
+
+
+                if (candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).size() >= 2) {//If Ballot has another preference still.
+                    candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).remove(0);//Removes the current preference
+                    candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1).trimToSize();
+                    ballotArray.add(candidatesArray.get(preference).get(candidatesArray.get(preference).size() - 1));//Puts into ballotArray for later sorting.
+                    candidatesArray.get(preference).remove(candidatesArray.get(preference).size() - 1);
+                    candidatesArray.get(preference).trimToSize();
+                    //System.out.println("loserRemoveExcess 1");
+                } else {
+                    candidatesArray.get(preference).remove(candidatesArray.get(preference).size() - 1);
+                    candidatesArray.get(preference).trimToSize();
+                    //System.out.println("loserRemoveExcess 2");
+                }
+                iterator--;
+            }
+            //candidatesArray.get(preference).remove(0);//Removes last element
+            candidatesArray.get(preference).trimToSize();
+            //System.out.println("loserRemoveExcess 3");
+
+        //System.out.println("loserRemoveExcess 4");
+    }
 
 
         public boolean isCountingOver () {

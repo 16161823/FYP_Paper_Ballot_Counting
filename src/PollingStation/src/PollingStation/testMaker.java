@@ -9,7 +9,7 @@ public class testMaker {
     ArrayList<Integer> ballot = new ArrayList<Integer>();
     int candidates = 8;
     Random random = new Random();
-    private int testMakerSize = 10000; //Has to be manually inputted in CountingStation Server.
+    private int testMakerSize = 100000; //Has to be manually inputted in CountingStation Server.
     Integer a = null;
     Integer b = null;
     Integer c = null;
@@ -18,6 +18,7 @@ public class testMaker {
 
         for(int i = 0;i < testMakerSize;i++){
 
+            //a = random.nextInt(candidates);
             b = random.nextInt(candidates);
             c = random.nextInt(candidates);
             Integer x = random.nextInt(100);
